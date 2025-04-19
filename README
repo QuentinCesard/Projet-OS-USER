@@ -1,0 +1,9 @@
+Pour créer des fichiers executable, il faut juste taper make dans le terminal.
+Pour lancer le serveur taper : make leserveur
+Pour lancer les client taper dans des terminales différents: 
+make client1
+make client2
+make client3
+make client4
+
+Pour supprimer les différents exécutable, il faut taper: make clean
