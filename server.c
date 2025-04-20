@@ -5,6 +5,7 @@
 #include <sys/types.h> 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <time.h>
 
 #include <netdb.h>
 #include <arpa/inet.h>
@@ -34,18 +35,29 @@ void error(const char *msg)
 
 void melangerDeck()
 {
-        int i;
-        int index1,index2,tmp;
+	int i,j,tmp;
+	srand(time(NULL));
 
-        for (i=0;i<1000;i++)
-        {
-                index1=rand()%13;
-                index2=rand()%13;
+	for (i=0;i<12;i++)
+	{
+		j=rand()%13;
+		tmp=deck[i];
+		deck[i]=deck[j];
+		deck[j]=tmp;
+	}
 
-                tmp=deck[index1];
-                deck[index1]=deck[index2];
-                deck[index2]=tmp;
-        }
+        // int i;
+        // int index1,index2,tmp;
+
+        // for (i=0;i<1000;i++)
+        // {
+        //         index1=rand()%13;
+        //         index2=rand()%13;
+
+        //         tmp=deck[index1];
+        //         deck[index1]=deck[index2];
+        //         deck[index2]=tmp;
+        // }
 }
 
 void createTable()
@@ -367,6 +379,8 @@ int main(int argc, char *argv[])
 
 						if (deck[12] == suspect) {
 							printf("%s a trouvé le coupable !\n", tcpClients[id].name);
+							sprintf(reply,"%s a trouvé le coupable !\n", tcpClients[id].name);
+							broadcastMessage(reply);
 						} else {
 							printf("%s a donné une mauvaise réponse !\n", tcpClients[id].name);
 							joueurCourant=(joueurCourant+1)%4; // on passe au joueur suivant
